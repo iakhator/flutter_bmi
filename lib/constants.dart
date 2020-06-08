@@ -7,9 +7,20 @@ const kSliderActiveColor = const Color(0xFFFFFFFF);
 const kSliderInactiveColor = const Color(0xFF888994);
 const kSliderThumbColor = const Color(0xFFEA1556);
 const kSliderThumbOverlay = const Color(0x20EA1556);
-const kGenderTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0,);
-const kTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 50.0);
-const kTextStyleGray = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.grey, letterSpacing: 1.5);
+const kGenderTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18.0,
+);
+const kTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 50.0,
+);
+const kTextStyleGray = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18.0,
+  color: Colors.grey,
+  letterSpacing: 1.5,
+);
 const kBottomContainerHeight = 80.0;
 
 const kBottomContainerColour = Color(0xFFEB1555);
@@ -17,6 +28,7 @@ const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
 );
+
 const kNumberTextStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.w900,

@@ -26,9 +26,7 @@ class _ParentInputState extends State<ParentInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15),
-      child: Column(
+    return Column(
         children: <Widget>[
           Expanded(
             child: Row(
@@ -153,9 +151,11 @@ class _ParentInputState extends State<ParentInput> {
                           children: <Widget>[
                             RoundCustomButton(
                               onPressed: () {
-                               setState(() {
-                                 _weight -= 1;
-                               },);
+                                setState(
+                                  () {
+                                    _weight -= 1;
+                                  },
+                                );
                               },
                               icon: Icon(
                                 FontAwesomeIcons.minus,
@@ -164,9 +164,11 @@ class _ParentInputState extends State<ParentInput> {
                             ),
                             RoundCustomButton(
                               onPressed: () {
-                               setState(() {
-                                 _weight += 1;
-                               },);
+                                setState(
+                                  () {
+                                    _weight += 1;
+                                  },
+                                );
                               },
                               icon: Icon(
                                 FontAwesomeIcons.plus,
@@ -197,9 +199,11 @@ class _ParentInputState extends State<ParentInput> {
                           children: <Widget>[
                             RoundCustomButton(
                               onPressed: () {
-                               setState(() {
-                                 _age -= 1;
-                               },);
+                                setState(
+                                  () {
+                                    _age -= 1;
+                                  },
+                                );
                               },
                               icon: Icon(
                                 FontAwesomeIcons.minus,
@@ -208,9 +212,11 @@ class _ParentInputState extends State<ParentInput> {
                             ),
                             RoundCustomButton(
                               onPressed: () {
-                               setState(() {
-                                 _age += 1;
-                               },);
+                                setState(
+                                  () {
+                                    _age += 1;
+                                  },
+                                );
                               },
                               icon: Icon(
                                 FontAwesomeIcons.plus,
@@ -226,8 +232,7 @@ class _ParentInputState extends State<ParentInput> {
               ],
             ),
           ),
-
-           BottomButton(
+          BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
               CalculatorBrain calc =
@@ -246,7 +251,7 @@ class _ParentInputState extends State<ParentInput> {
             },
           ),
         ],
-      ),
-    );
+      );
+    // );
   }
 }
