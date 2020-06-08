@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calculator/reuseable_card.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'round_custom_button.dart';
 
 class ParentInput extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ enum Gender {
 class _ParentInputState extends State<ParentInput> {
   Gender genderSelected;
   double _value = 180.0;
+  int _weight = 30;
   void _setvalue(double value) => setState(() => _value = value);
 
   @override
@@ -130,7 +132,37 @@ class _ParentInputState extends State<ParentInput> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReuseableCard(color: kActiveCardColor),
+                  child: ReuseableCard(
+                    color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: kTextStyleGray,
+                        ),
+                        Text(
+                          '$_weight',
+                          style: kTextStyle,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            RoundCustomButton(
+                              onPressed: () {
+                               setState(() {
+                                 _weight -= 1;
+                               },);
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.minus,
+                                size: 30.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: ReuseableCard(color: kActiveCardColor),
