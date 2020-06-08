@@ -15,6 +15,8 @@ enum Gender {
 
 class _ParentInputState extends State<ParentInput> {
   Gender genderSelected;
+  double _value = 180.0;
+  void _setvalue(double value) => setState(() => _value = value);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,9 @@ class _ParentInputState extends State<ParentInput> {
                       });
                     },
                     child: ReuseableCard(
-                      color: genderSelected == Gender.female ? kActiveCardColor : kInactiveCardColor,
+                      color: genderSelected == Gender.female
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                       cardChild: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -80,7 +84,47 @@ class _ParentInputState extends State<ParentInput> {
             ),
           ),
           Expanded(
-            child: ReuseableCard(color: kActiveCardColor),
+            child: ReuseableCard(
+              color: kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: kTextStyleGray,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        '${_value.round()}',
+                        style: kTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kTextStyleGray,
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: kSliderActiveColor,
+                      inactiveTrackColor: kSliderInactiveColor,
+                      thumbColor: kSliderThumbColor,
+                      overlayColor: kSliderThumbOverlay,
+                    ),
+                    child: Slider(
+                      value: _value,
+                      onChanged: _setvalue,
+                      min: 150.0,
+                      max: 200.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: Row(
