@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:bmi_calculator/reuseable_card.dart';
+import 'package:bmi_calculator/reusable_card.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'round_custom_button.dart';
+import 'button_button.dart';
+import 'results_page.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
 
 class ParentInput extends StatefulWidget {
   @override
@@ -16,9 +19,10 @@ enum Gender {
 
 class _ParentInputState extends State<ParentInput> {
   Gender genderSelected;
-  double _value = 180.0;
+  double _height = 180.0;
   int _weight = 30;
-  void _setvalue(double value) => setState(() => _value = value);
+  int _age = 2;
+  void _setvalue(double value) => setState(() => _height = value);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class _ParentInputState extends State<ParentInput> {
                         genderSelected = Gender.male;
                       });
                     },
-                    child: ReuseableCard(
+                    child: ReusableCard(
                       color: genderSelected == Gender.male
                           ? kActiveCardColor
                           : kInactiveCardColor,
@@ -64,7 +68,7 @@ class _ParentInputState extends State<ParentInput> {
                         genderSelected = Gender.female;
                       });
                     },
-                    child: ReuseableCard(
+                    child: ReusableCard(
                       color: genderSelected == Gender.female
                           ? kActiveCardColor
                           : kInactiveCardColor,
@@ -86,7 +90,7 @@ class _ParentInputState extends State<ParentInput> {
             ),
           ),
           Expanded(
-            child: ReuseableCard(
+            child: ReusableCard(
               color: kActiveCardColor,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +105,7 @@ class _ParentInputState extends State<ParentInput> {
                     textBaseline: TextBaseline.alphabetic,
                     children: <Widget>[
                       Text(
-                        '${_value.round()}',
+                        '${_height.round()}',
                         style: kTextStyle,
                       ),
                       Text(
@@ -118,7 +122,7 @@ class _ParentInputState extends State<ParentInput> {
                       overlayColor: kSliderThumbOverlay,
                     ),
                     child: Slider(
-                      value: _value,
+                      value: _height,
                       onChanged: _setvalue,
                       min: 150.0,
                       max: 200.0,
@@ -132,7 +136,7 @@ class _ParentInputState extends State<ParentInput> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReuseableCard(
+                  child: ReusableCard(
                     color: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -158,6 +162,17 @@ class _ParentInputState extends State<ParentInput> {
                                 size: 30.0,
                               ),
                             ),
+                            RoundCustomButton(
+                              onPressed: () {
+                               setState(() {
+                                 _weight += 1;
+                               },);
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.plus,
+                                size: 30.0,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -165,10 +180,70 @@ class _ParentInputState extends State<ParentInput> {
                   ),
                 ),
                 Expanded(
-                  child: ReuseableCard(color: kActiveCardColor),
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kTextStyleGray,
+                        ),
+                        Text(
+                          '$_age',
+                          style: kTextStyle,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            RoundCustomButton(
+                              onPressed: () {
+                               setState(() {
+                                 _age -= 1;
+                               },);
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.minus,
+                                size: 30.0,
+                              ),
+                            ),
+                            RoundCustomButton(
+                              onPressed: () {
+                               setState(() {
+                                 _age += 1;
+                               },);
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.plus,
+                                size: 30.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
+          ),
+
+           BottomButton(
+            buttonTitle: 'CALCULATE',
+            onTap: () {
+              CalculatorBrain calc =
+                  CalculatorBrain(height: _height, weight: _weight);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
